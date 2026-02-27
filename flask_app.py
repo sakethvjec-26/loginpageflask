@@ -1,11 +1,22 @@
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for
+from flask_cors import CORS
 import mysql.connector
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.secret_key = 'fluent-secret-key-99'
 
-# Your Database Configuration
+# --- CORS CONFIGURATION ---
+# supports_credentials=True allows the frontend to send/receive session cookies
+CORS(app, supports_credentials=True)
+
+# These settings are required for browsers (like Chrome) to allow cookies 
+# when the frontend and backend are on different origins.
+app.config.update(
+    SESSION_COOKIE_SAMESITE='None',
+    SESSION_COOKIE_SECURE=False, # Set to True in production with HTTPS
+)
+
 DB_CONFIG = {
     "user": "root",
     "password": "root",
@@ -69,12 +80,12 @@ def login():
     if user and check_password_hash(user['password'], password):
         session['user_id'] = user['id']
         session['username'] = user['username']
+        # Ensure the redirect path is absolute if calling from a different domain
         return jsonify({"success": True, "message": "Login successful!", "redirect": "/home"})
     
     return jsonify({"success": False, "message": "Invalid credentials."}), 401
 
 if __name__ == '__main__':
-    # Auto-create table on start
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(150) UNIQUE, password VARCHAR(255))")
@@ -82,4 +93,4 @@ if __name__ == '__main__':
     cursor.close()
     conn.close()
     
-    app.run(debug=True)
+    app.run(debug=True, port=5000)
