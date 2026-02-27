@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Auth | Fluent System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="auth-container">
+        <h2 id="title">Welcome Back</h2>
+        <p class="subtitle" id="subtitle">Enter your credentials to continue</p>
+        
+        <div id="msg"></div>
+
+        <div class="input-group">
+            <label>Username</label>
+            <input type="text" id="username" placeholder="Enter username">
+        </div>
+        <div class="input-group">
+            <label>Password</label>
+            <input type="password" id="password" placeholder="••••••••">
+        </div>
+
+        <button onclick="handleAuth()" id="btn-text">Sign In</button>
+
+        <p class="subtitle" style="margin-top: 1.5rem;">
+            <span id="toggle-msg">Don't have an account?</span> 
+            <a href="#" onclick="toggleMode()" style="color: var(--primary); font-weight:600; text-decoration:none;">Click here</a>
+        </p>
+    </div>
+
+    <script>
+        let isLogin = true;
+
+        function toggleMode() {
+            isLogin = !isLogin;
+            document.getElementById('title').innerText = isLogin ? "Welcome Back" : "Create Account";
+            document.getElementById('btn-text').innerText = isLogin ? "Sign In" : "Sign Up";
+            document.getElementById('toggle-msg').innerText = isLogin ? "Don't have an account?" : "Already a member?";
+        }
+
+        async function handleAuth() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const msgBox = document.getElementById('msg');
+
+            const path = isLogin ? '/api/login' : '/api/signup';
+            const res = await fetch(path, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({username, password})
+            });
+
+            const data = await res.json();
+            msgBox.innerText = data.message;
+            msgBox.style.display = 'block';
+            msgBox.style.background = data.success ? '#dcfce7' : '#fee2e2';
+            msgBox.style.color = data.success ? '#166534' : '#991b1b';
+
+            if (data.success && isLogin) {
+                setTimeout(() => window.location.href = data.redirect, 800);
+            }
+        }
+    </script>
+</body>
+</html>

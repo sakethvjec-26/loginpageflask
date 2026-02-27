@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home | Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body style="display:block; background: #f8fafc;">
+    <div class="dash-layout">
+        <aside class="sidebar">
+            <h2 style="margin-bottom: 2rem; letter-spacing: 1px;">Home</h2>
+            <p style="opacity: 0.5; font-size: 0.75rem; margin-bottom: 1.5rem; font-weight: 700;">MAIN MENU</p>
+            <div style="cursor:pointer; margin-bottom: 1.2rem; font-size: 0.95rem;">📊 Overview</div>
+            <div style="cursor:pointer; margin-bottom: 1.2rem; font-size: 0.95rem;">⚙️ Settings</div>
+            
+            <div style="margin-top: auto;">
+                <button onclick="location.href='/logout'" style="background:#ef4444; font-size: 0.9rem;">Logout</button>
+            </div>
+        </aside>
+
+        <main class="main-area">
+            <header style="margin-bottom: 3rem;">
+                <h1 style="font-size: 2rem; color: #1e293b;">Hello, {{ username }}! 👋</h1>
+                <p style="color: var(--text-light); margin-top: 0.5rem;">Welcome back to your secure dashboard.</p>
+            </header>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem;">
+                <div class="stat-card">
+                    <p style="color: var(--text-light); font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">Total Balance</p>
+                    <h2 style="margin-top: 0.75rem; font-size: 1.75rem; color: #1e293b;">$12,450.00</h2>
+                    <p style="color: #10b981; font-size: 0.8rem; margin-top: 0.5rem;">+2.5% from last month</p>
+                </div>
+
+                <div class="stat-card">
+                    <p style="color: var(--text-light); font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">Account Security</p>
+                    <div style="display: flex; align-items: center; margin-top: 0.75rem;">
+                        <div style="width: 10px; height: 10px; background: #10b981; border-radius: 50%; margin-right: 10px;"></div>
+                        <h2 style="font-size: 1.5rem; color: #1e293b;">Verified</h2>
+                    </div>
+                    <p style="color: var(--text-light); font-size: 0.8rem; margin-top: 0.5rem;">Last login: Just now</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 3rem; padding: 4rem; border: 2px dashed #cbd5e1; border-radius: 1rem; text-align: center; color: #94a3b8;">
+                <p>No recent activity to display.</p>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

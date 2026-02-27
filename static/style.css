@@ -1,0 +1,33 @@
+:root {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #1e293b;
+    --text-light: #64748b;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+
+body { background: #e2e8f0; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+
+/* Auth Card Styles */
+.auth-container { background: var(--card); padding: 2.5rem; border-radius: 1rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+.auth-container h2 { color: var(--text); margin-bottom: 0.5rem; text-align: center; }
+.subtitle { color: var(--text-light); text-align: center; margin-bottom: 2rem; font-size: 0.9rem; }
+
+.input-group { margin-bottom: 1.2rem; }
+.input-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; font-size: 0.9rem; }
+input { width: 100%; padding: 0.8rem; border: 1px solid #cbd5e1; border-radius: 0.5rem; outline: none; transition: 0.2s; }
+input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); }
+
+button { width: 100%; padding: 0.8rem; background: var(--primary); color: white; border: none; border-radius: 0.5rem; font-weight: 600; cursor: pointer; transition: 0.2s; }
+button:hover { background: var(--primary-dark); }
+
+#msg { margin: 1rem 0; padding: 0.8rem; border-radius: 0.5rem; font-size: 0.85rem; text-align: center; display: none; }
+
+/* Dashboard Styles */
+.dash-layout { display: flex; width: 100%; height: 100vh; background: var(--bg); align-items: stretch; justify-content: flex-start; }
+.sidebar { width: 260px; background: #0f172a; color: white; padding: 2rem; display: flex; flex-direction: column; }
+.main-area { flex: 1; padding: 3rem; overflow-y: auto; }
+.stat-card { background: white; padding: 1.5rem; border-radius: 0.8rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
